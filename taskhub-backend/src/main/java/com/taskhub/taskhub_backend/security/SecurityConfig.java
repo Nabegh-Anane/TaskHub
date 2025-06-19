@@ -13,22 +13,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/api/**")
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+                .httpBasic(httpBasic -> {}); // Ou supprime si inutile
         return http.build();
     }
 
-    @Bean
-    public SecurityFilterChain generalFilterChain(HttpSecurity http) throws Exception {
-        http
-                .securityMatcher("/**")
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
-        return http.build();
-    }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
@@ -40,4 +34,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
