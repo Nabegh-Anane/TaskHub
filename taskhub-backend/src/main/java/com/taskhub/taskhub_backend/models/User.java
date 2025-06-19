@@ -22,7 +22,7 @@ public class User {
     private String fullName;
 
     @Column(nullable = false)
-    private String role;  // Exemple : "ROLE_SUPERADMIN", "ROLE_MANAGER", "ROLE_EMPLOYER"
+    private String role;  // Exemple : "SUPERADMIN", "MANAGER", "EMPLOYER"
 
     private boolean enabled;
 }

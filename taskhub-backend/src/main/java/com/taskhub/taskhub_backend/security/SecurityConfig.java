@@ -12,17 +12,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig {
 
+    private final RequestLoggingFilter requestLoggingFilter;
+
+    public SecurityConfig(RequestLoggingFilter requestLoggingFilter) {
+        this.requestLoggingFilter = requestLoggingFilter;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()))
-                .httpBasic(httpBasic -> {}); // Ou supprime si inutile
+                .addFilterBefore(requestLoggingFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
-
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
