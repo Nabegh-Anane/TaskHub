@@ -1,0 +1,144 @@
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="logo">TaskHub</div>
+
+    <ul class="nav-links">
+      <li><a href="#get-started">Home</a></li>
+      <li><a href="#who-we-are">Who We Are</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#packs">Packs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-buttons">
+      <a routerLink="/signin" class="btn btn-primary">Sign In</a>
+      <a routerLink="/signup" class="btn btn-primary">Sign Up</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Ton bouton back to top -->
+<button id="scrollTopBtn" title="Go to top" (click)="scrollToTop()"
+  [style.display]="showScrollTopBtn ? 'block' : 'none'">
+  &#8679;
+</button>
+
+
+<!-- Get Started -->
+<section id="get-started" class="section get-started">
+  <div class="overlay"></div>
+  <div class="content container">
+    <h1>Welcome to TaskHub</h1>
+    <p>Your agile team's central task management system, powered by Git.</p>
+    <a href="#who-we-are" class="btn btn-primary btn-large">Get Started Now</a>
+  </div>
+</section>
+
+<!-- Who We Are -->
+<section id="who-we-are" class="section who-we-are">
+  <div class="container">
+    <h2>Who We Are</h2>
+    <p>TaskHub is a Git-powered task management system designed for agile teams. Built with Spring Boot backend and
+      Angular frontend, it empowers Admins and Employees to collaborate efficiently.</p>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="section services">
+  <div class="container">
+    <h2>Our Services</h2>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="icon icon-tasks"></div>
+        <h3>Task Management</h3>
+        <p>Create, assign, and track tasks with ease.</p>
+      </div>
+      <div class="service-item">
+        <div class="icon icon-collaboration"></div>
+        <h3>Team Collaboration</h3>
+        <p>Comment and update task status in real time.</p>
+      </div>
+      <div class="service-item">
+        <div class="icon icon-analytics"></div>
+        <h3>Reporting & Analytics</h3>
+        <p>Visualize your team’s productivity and progress.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Packs -->
+<section id="packs" class="section packs">
+  <div class="container">
+    <h2>Our Packs</h2>
+    <div class="packs-grid">
+      <div class="pack pack-basic">
+        <h3>Basic</h3>
+        <ul>
+          <li>Task creation</li>
+          <li>Basic reporting</li>
+          <li>Email support</li>
+        </ul>
+        <a href="#signup" class="btn btn-outline">Choose Basic</a>
+      </div>
+      <div class="pack pack-pro">
+        <h3>Pro</h3>
+        <ul>
+          <li>Everything in Basic</li>
+          <li>Advanced analytics</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#signup" class="btn btn-primary">Choose Pro</a>
+      </div>
+      <div class="pack pack-enterprise">
+        <h3>Enterprise</h3>
+        <ul>
+          <li>Everything in Pro</li>
+          <li>Custom integrations</li>
+          <li>Dedicated account manager</li>
+        </ul>
+        <a href="#signup" class="btn btn-primary">Choose Enterprise</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="section contact">
+  <div class="container">
+    <h2>Contact Us</h2>
+    <form #contactForm="ngForm" (ngSubmit)="submitContact()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" ngModel required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" ngModel required email />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" ngModel required></textarea>
+      </div>
+      <button type="submit" [disabled]="contactForm.invalid" class="btn btn-primary">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-links">
+      <a href="#faq">FAQ</a>
+      <a href="#terms">Terms & Conditions</a>
+      <a href="#privacy">Privacy Policy</a>
+    </div>
+    <div class="footer-social">
+      <a href="mailto:contact@taskhub.com" aria-label="Email">contact&#64;task-hub.tech</a>
+      <a href="#" aria-label="Facebook" class="social-icon fb"></a>
+      <a href="#" aria-label="Twitter" class="social-icon tw"></a>
+      <a href="#" aria-label="LinkedIn" class="social-icon ln"></a>
+    </div>
+  </div>
+</footer>

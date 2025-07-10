@@ -1,0 +1,9 @@
+<div class="auth-container">
+  <h2>Sign In</h2>
+  <form #f="ngForm" (ngSubmit)="submit(f)">
+    <input type="email" name="email" ngModel placeholder="Email" required />
+    <input type="password" name="password" ngModel placeholder="Password" required />
+    <button class="btn btn-primary" [disabled]="f.invalid">Login</button>
+  </form>
+  <p>New here? <a routerLink="/signup">Create an account</a></p>
+</div>

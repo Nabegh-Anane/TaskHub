@@ -1,0 +1,65 @@
+/* src/custom-theme.scss */
+@use 'sass:color';
+/* Couleurs TaskHub */
+$tb-blue: #1e3a8a;
+$tb-gold: #fbbf24;
+$tb-grey: #f3f4f6;
+$tb-red: #f87171;
+$tb-white: #ffffff;
+
+/* Variables typographiques */
+$font-primary: 'Roboto, sans-serif';
+$font-heading: 'Montserrat', sans-serif;
+
+/* Exemples de styles globaux */
+
+body {
+  font-family: $font-primary;
+  background-color: $tb-grey;
+  color: $tb-blue;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  color: $tb-blue;
+  margin: 0 0 1rem 0;
+}
+
+h1 {
+  font-size: 3rem; /* approx 48px */
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+/* Boutons personnalisés */
+
+a.btn-primary {
+  display: inline-block;
+  background-color: $tb-blue;
+  color: $tb-white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+a.btn-primary:hover {
+  background-color: color.adjust($tb-blue, $lightness: -10%);
+}
+
+/* Exemple footer */
+
+footer {
+  background-color: $tb-blue;
+  color: $tb-white;
+  padding: 1rem 2rem;
+  text-align: center;
+}
+
+/* Et d’autres règles... */
