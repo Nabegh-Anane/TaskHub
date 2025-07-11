@@ -35,11 +35,19 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build --no-daemon
 
-      - name: Upload JAR artifact
+      - name: Copy web.config to output
+        run: cp web.config build/libs/
+
+      - name: Zip JAR and web.config
+        run: |
+          cd build/libs
+          zip deploy.zip taskhub-backend.jar web.config
+
+      - name: Upload ZIP artifact
         uses: actions/upload-artifact@v4
         with:
-          name: java-app
-          path: build/libs/taskhub-backend.jar
+          name: deploy-zip
+          path: build/libs/deploy.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,25 +59,22 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: java-app
+          name: deploy-zip
           path: build/libs
 
       - name: List downloaded artifacts (debug)
         run: ls -la build/libs
 
-      - name: Zip the JAR file
-        run: |
-          cd build/libs
-          zip deploy.zip taskhub-backend.jar
-
-      - name: FTP Deploy ZIP
+      - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
-          server: ${{ secrets.FTP_SERVER }}               # Ex: waws-prod-par-039.ftp.azurewebsites.windows.net
-          username: ${{ secrets.FTP_USERNAME }}           # Ex: taskhub-backend\$taskhub-backend
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
           local-dir: build/libs/
           server-dir: site/wwwroot/
-          log-level: verbose
+          exclude: |
+            **/.git*
+            **/node_modules/**
