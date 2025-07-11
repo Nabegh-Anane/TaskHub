@@ -1,4 +1,4 @@
-name: Build and deploy via FTP -- taskhub-backend
+name: Build and deploy JAR app to Azure Web App -- taskhub-backend
 
 on:
   push:
@@ -14,6 +14,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,6 +44,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      contents: read
+
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -48,17 +54,22 @@ jobs:
           name: java-app
           path: build/libs
 
-      - name: List contents (debug)
+      - name: List downloaded artifacts (debug)
         run: ls -la build/libs
 
-      - name: FTP Deploy
+      - name: Zip the JAR file
+        run: |
+          cd build/libs
+          zip deploy.zip taskhub-backend.jar
+
+      - name: FTP Deploy ZIP
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
+          server: ${{ secrets.FTP_SERVER }}               # Ex: waws-prod-par-039.ftp.azurewebsites.windows.net
+          username: ${{ secrets.FTP_USERNAME }}           # Ex: taskhub-backend\$taskhub-backend
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
           local-dir: build/libs/
           server-dir: site/wwwroot/
-          passive: true
+          log-level: verbose
