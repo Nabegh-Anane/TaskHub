@@ -57,17 +57,15 @@ jobs:
       - name: List downloaded artifacts (debug)
         run: ls -la build/libs
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.2.0
+      - name: Login to Azure
+        uses: azure/login@v2
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          secure: true
-          passive: true
-          local-dir: build/libs/
-          server-dir: site/wwwroot/
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5192489C10764CA6BADFD72857719333 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8EAC1C821CB649389AE6A360F4F14F85 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4EEE7015E6B04E23BC4E7909DB21C590 }}
 
-
-
+      - name: Deploy to Azure Web App (Zip Deploy)
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'taskhub-backend'
+          package: 'build/libs/taskhub-backend.jar'
