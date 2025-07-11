@@ -34,25 +34,25 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Email is already taken");
+            return ResponseEntity.badRequest().body(Map.of("message", "Email is already taken"));
         }
 
-        String rawPassword = request.getPassword(); // 🔐 on garde une copie temporaire
+        String rawPassword = request.getPassword();
         User user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(rawPassword))
                 .fullName(request.getFullName())
-                .role("EMPLOYER") // rôle par défaut
+                .role("EMPLOYER")
                 .enabled(true)
                 .build();
 
-        user = userRepository.save(user); // 👈 Important : récupérer l'objet sauvegardé avec createdAt
+        user = userRepository.save(user);
 
-        // ✅ Envoi d'un e-mail avec les credentials
         mailService.sendRegistrationEmail(user, rawPassword);
 
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity.ok(Map.of("message", "User registered successfully"));
     }
+
 
     /**
      * Authentifie un utilisateur et génère un token JWT.
