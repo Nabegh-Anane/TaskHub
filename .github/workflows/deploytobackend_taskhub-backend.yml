@@ -16,7 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write 
 
     steps:
       - name: Checkout code
@@ -47,6 +46,7 @@ jobs:
     needs: build
     permissions:
       contents: read
+      id-token: write  # ✅ DOIT être ici (dans le job deploy)
 
     steps:
       - name: Download artifact
