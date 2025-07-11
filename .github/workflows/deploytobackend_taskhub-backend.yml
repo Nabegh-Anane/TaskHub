@@ -3,13 +3,13 @@ name: Build and deploy JAR app to Azure Web App -- taskhub-backend
 on:
   push:
     branches:
-      - backfinal
+      - deploytobackend
   workflow_dispatch:
     inputs:
       manual_branch:
         description: 'Branch to build and deploy'
         required: true
-        default: 'backfinal'
+        default: 'deploytobackend'
 
 jobs:
   build:
