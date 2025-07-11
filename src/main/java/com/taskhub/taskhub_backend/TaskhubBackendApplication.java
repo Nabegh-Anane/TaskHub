@@ -8,12 +8,12 @@ import java.util.Collections;
 @SpringBootApplication
 public class TaskhubBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(TaskhubBackendApplication.class);
-		String port = System.getenv("PORT");
-		if (port != null) {
-			app.setDefaultProperties(Collections.singletonMap("server.port", port));
-		}
-		app.run(args);
-	}
+    public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(TaskhubBackendApplication.class);
+        String port = System.getenv("PORT");
+        if (port != null) {
+            app.setDefaultProperties(Collections.singletonMap("server.port", port));
+        }
+        app.run(args);
+    }
 }
