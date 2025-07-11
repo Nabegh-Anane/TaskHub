@@ -38,6 +38,13 @@ jobs:
       - name: Copy web.config to output (optional, if needed for Azure)
         run: cp web.config build/libs/ || true
 
+      - name: Rename JAR if needed
+        run: |
+          JAR_FILE=$(find build/libs -name "*.jar" | grep -v "plain")
+          if [[ "$(basename "$JAR_FILE")" != "taskhub-backend.jar" ]]; then
+            mv "$JAR_FILE" build/libs/taskhub-backend.jar
+          fi
+
 
       - name: Zip JAR and web.config
         run: |
