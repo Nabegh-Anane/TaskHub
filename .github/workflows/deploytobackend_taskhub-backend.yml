@@ -63,7 +63,11 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          secure: true
+          passive: true
           local-dir: build/libs/
           server-dir: site/wwwroot/
+
 
 
