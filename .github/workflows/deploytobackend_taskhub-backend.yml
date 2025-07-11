@@ -33,15 +33,18 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build --no-daemon
+        run: ./gradlew clean bootJar --no-daemon
 
-      - name: Copy web.config to output
-        run: cp web.config build/libs/
+      - name: Copy web.config to output (optional, if needed for Azure)
+        run: cp web.config build/libs/ || true
+
+      - name: Rename JAR to match expected name
+        run: mv build/libs/*.jar build/libs/taskhub-backend.jar
 
       - name: Zip JAR and web.config
         run: |
           cd build/libs
-          zip deploy.zip taskhub-backend.jar web.config
+          zip deploy.zip taskhub-backend.jar web.config || zip deploy.zip taskhub-backend.jar
 
       - name: Upload ZIP artifact
         uses: actions/upload-artifact@v4
@@ -64,6 +67,9 @@ jobs:
 
       - name: List downloaded artifacts (debug)
         run: ls -la build/libs
+
+      - name: Unzip artifact
+        run: unzip -o build/libs/deploy.zip -d build/libs
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
