@@ -10,40 +10,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: ⬇️ Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: 🔧 Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: npm install
 
-      - name: Build Angular app
+      - name: 🛠️ Build Angular app
         run: npm run build
 
-      - name: Upload build output
+      - name: 📤 Upload build output
         uses: actions/upload-artifact@v4
         with:
           name: angular-dist
-          path: dist/taskhub-frontend
+          path: dist/taskhub-frontend/browser
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-      - name: Download build output
+      - name: 📥 Download build output
         uses: actions/download-artifact@v4
         with:
           name: angular-dist
           path: deploy-folder
 
-      - name: Deploy to Azure App Service
+      - name: 🚀 Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
-          app-name: taskhub-frontend
+          app-name: taskhub-frontend  # <- le nom exact de ton App Service Azure
+          slot-name: production       # (optionnel) si tu n'utilises pas de slots, laisse-le comme ça ou supprime-le
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FRONT }}
           package: deploy-folder
