@@ -1,0 +1,78 @@
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="logo">TaskHub</div>
+
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="#who-we-are">Who We Are</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#packs">Packs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content-wrapper">
+    <div class="register-container">
+      <h2>Créer un compte</h2>
+
+      <form (ngSubmit)="register()" #registerForm="ngForm" novalidate>
+        <!-- Nom complet -->
+        <div class="form-group">
+          <label for="fullName">Nom complet</label>
+          <input type="text" id="fullName" name="fullName" [(ngModel)]="fullName" required
+            placeholder="Ex: Nabegh Anane" />
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Adresse e-mail</label>
+          <input type="email" id="email" name="email" [(ngModel)]="email" required
+            placeholder="Ex: contact@nabeghanane.com" />
+        </div>
+
+        <!-- Mot de passe -->
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" [(ngModel)]="password" required placeholder="********" />
+        </div>
+
+        <!-- Alertes -->
+        <div class="alert alert-success" *ngIf="message">{{ message }}</div>
+        <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+        <!-- Bouton -->
+        <button type="submit" [disabled]="!registerForm.form.valid">
+          S'inscrire
+        </button>
+      </form>
+
+      <p class="mt-4">
+        Vous avez déjà un compte ?
+        <a routerLink="/login">Connexion</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#faq">FAQ</a>
+        <a href="#terms">Terms & Conditions</a>
+        <a href="#privacy">Privacy Policy</a>
+      </div>
+      <div class="footer-social">
+        <a href="mailto:contact@taskhub.com" aria-label="Email">
+          contact&#64;task-hub.tech
+        </a>
+        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+</div>

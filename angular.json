@@ -25,6 +25,11 @@
               }
             ],
             "styles": [
+              "src/custom-theme.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fontsource/roboto/index.css",
+              "node_modules/@fontsource/montserrat/index.css",
               "src/styles.css"
             ]
           },
@@ -88,5 +93,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "5afe2468-0646-4850-ba7c-c3ec062f9500"
   }
 }

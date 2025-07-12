@@ -1,1 +1,59 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.css (global) */
+:root {
+  --tb-blue: #1E3A8A;      /* Primary */
+  --tb-gold: #FBBF24;      /* Accent  */
+  --tb-light: #F3F4F6;     /* Backgrounds */
+  --tb-red: #F87171;       /* Alerts */
+  --tb-white: #FFFFFF;
+  --tb-radius: 0.75rem;
+  --tb-shadow: 0 8px 20px rgba(0,0,0,.05);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--tb-light);
+  color: #333;
+}
+
+/* Universel bouton‑lien */
+a.btn {
+  display:inline-block;
+  padding:.65rem 1.5rem;
+  border-radius: var(--tb-radius);
+  font-weight:600;
+  text-decoration:none;
+  transition: all .3s ease;
+}
+a.btn-primary   { background: var(--tb-blue); color:var(--tb-white); }
+a.btn-outline   { border:2px solid var(--tb-blue); color:var(--tb-blue); }
+a.btn-primary:hover,
+a.btn-outline:hover { transform:translateY(-2px); box-shadow: var(--tb-shadow); }
+
+/* Navbar fixée + ombre douce */
+.navbar-custom {
+  background: var(--tb-white);
+  box-shadow: var(--tb-shadow);
+}
+
+/* Héros avec overlay dégradé bleu ➜ transparent */
+.hero {
+  background: linear-gradient(135deg, rgba(30,58,138,.8), rgba(30,58,138,.4)), url('https://source.unsplash.com/1600x900/?workflow,agile') center/cover;
+  color: var(--tb-white);
+}
+
+/* Cards packs */
+.pack-card {
+  border: none;
+  border-radius: var(--tb-radius);
+  box-shadow: var(--tb-shadow);
+  transition: transform .3s;
+}
+.pack-card:hover { transform: translateY(-6px); }
+
+/* Section spacing */
+section { padding: 6rem 0 4.5rem; }
+
+/* Titres */
+h2, h3, .display-4 { font-family: 'Montserrat', sans-serif; color: var(--tb-blue); }
