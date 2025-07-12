@@ -24,11 +24,17 @@ jobs:
       - name: Build JAR with Gradle
         run: ./gradlew clean bootJar --no-daemon
 
+      - name: Rename JAR for Azure
+        run: |
+          JAR_FILE=$(find build/libs -name "*.jar" | grep -v "plain")
+          echo "Found jar: $JAR_FILE"
+          cp "$JAR_FILE" build/libs/taskhub-backend.jar
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: taskhub-backend
-          path: build/libs/*.jar
+          path: build/libs/taskhub-backend.jar
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,4 +53,4 @@ jobs:
         with:
           app-name: taskhub-backend
           publish-profile: ${{ secrets.azureWebAppPublishProfile }}
-          package: '*.jar'
+          package: taskhub-backend.jar
