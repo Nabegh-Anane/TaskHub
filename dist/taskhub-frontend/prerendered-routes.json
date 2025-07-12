@@ -1,3 +1,9 @@
 {
-  "routes": {}
+  "routes": [
+    "/",
+    "/login",
+    "/register",
+    "/thanks",
+    "/dashboard"
+  ]
 }

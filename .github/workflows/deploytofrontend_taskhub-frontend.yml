@@ -22,7 +22,20 @@ jobs:
         run: npm install
 
       - name: 🛠️ Build Angular app
-        run: npm run build
+        run: npm run build -- --configuration=production --base-href=/
+
+      - name: 📄 Add fallback 404.html and static config
+        run: |
+          cp dist/taskhub-frontend/browser/index.html dist/taskhub-frontend/browser/404.html
+          echo '{
+            "routes": [
+              {
+                "route": "/*",
+                "serve": "/index.html",
+                "statusCode": 200
+              }
+            ]
+          }' > dist/taskhub-frontend/browser/staticwebapp.config.json
 
       - name: 📤 Upload build output
         uses: actions/upload-artifact@v4
@@ -44,7 +57,6 @@ jobs:
       - name: 🚀 Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
-          app-name: taskhub-frontend  # <- le nom exact de ton App Service Azure
-          slot-name: production       # (optionnel) si tu n'utilises pas de slots, laisse-le comme ça ou supprime-le
+          app-name: taskhub-frontend
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FRONT }}
           package: deploy-folder/
