@@ -47,4 +47,4 @@ jobs:
           app-name: taskhub-frontend  # <- le nom exact de ton App Service Azure
           slot-name: production       # (optionnel) si tu n'utilises pas de slots, laisse-le comme ça ou supprime-le
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FRONT }}
-          package: deploy-folder
+          package: deploy-folder/
