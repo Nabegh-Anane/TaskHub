@@ -1,1 +1,76 @@
-<p>dashboard works!</p>
+<div class="dashboard-container" [class.sidebar-closed]="!sidebarOpen">
+  <!-- Sidebar -->
+<aside class="sidebar" *ngIf="sidebarOpen">
+  <h3 class="logo">TaskHub Dashboard</h3>
+  <nav>
+    <ul>
+      <li routerLink="users" routerLinkActive="active">
+        <i class="bi bi-people"></i> Users
+      </li>
+      <li routerLink="groupes" routerLinkActive="active">
+        <i class="bi bi-people-fill"></i> Groupes
+      </li>
+
+      <!-- Titre non-cliquable -->
+      <li routerLink="projects" routerLinkActive="active">
+        <i class="bi bi-folder"></i> Projects
+      </li>
+
+      <!-- Boutons du sous-menu au même niveau -->
+      <li class="sub-item" routerLink="epics" routerLinkActive="active">
+        <i class="bi bi-pin"></i> Epics
+      </li>
+      <li class="sub-item" routerLink="sprints" routerLinkActive="active">
+        <i class="bi bi-lightning-charge"></i> Sprints
+      </li>
+      <li class="sub-item" routerLink="tasks" routerLinkActive="active">
+        <i class="bi bi-check2-square"></i> Tasks
+      </li>
+
+      <li routerLink="notifications" routerLinkActive="active">
+        <i class="bi bi-bell"></i> Notifications
+      </li>
+      <li routerLink="settings" routerLinkActive="active">
+        <i class="bi bi-gear"></i> Settings
+      </li>
+      <li routerLink="packs" routerLinkActive="active">
+        <i class="bi bi-box"></i> Packs
+      </li>
+    </ul>
+  </nav>
+  <button class="upgrade-button">Upgrade to Pro</button>
+</aside>
+
+
+
+  <!-- Main content -->
+<main class="main-content">
+  <header class="topbar">
+    <div class="topbar-row">
+      <button class="circle-btn" (click)="sidebarOpen = !sidebarOpen" title="Toggle sidebar">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <input class="search-input" type="text" placeholder="Search..." />
+
+      <button class="circle-btn" title="Notifications">
+        <i class="bi bi-bell"></i>
+      </button>
+
+      <div class="avatar-btn" title="Profile">
+        <img src="https://i.pravatar.cc/40" alt="User Avatar" />
+      </div>
+
+      <button class="circle-btn" (click)="logout()" title="Logout">
+        <i class="bi bi-box-arrow-right"></i>
+      </button>
+
+    </div>
+  </header>
+
+
+    <section class="page-content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

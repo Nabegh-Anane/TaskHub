@@ -1,0 +1,91 @@
+<div class="users-container">
+  <h2>Manage Users</h2>
+
+  <!-- Add User Form -->
+  <div class="add-user-form">
+    <input [(ngModel)]="newUser.fullName" placeholder="Full Name" />
+    <input [(ngModel)]="newUser.email" placeholder="Email" />
+    <input [(ngModel)]="newUser.password" type="password" placeholder="Password" />
+    <select [(ngModel)]="newUser.role">
+      <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+      <option value="MANAGER">MANAGER</option>
+      <option value="EMPLOYEE">EMPLOYEE</option>
+    </select>
+    <label>
+      Enabled
+      <input type="checkbox" [(ngModel)]="newUser.enabled" />
+    </label>
+    <button (click)="addUser()">Add User</button>
+  </div>
+
+  <!-- Users Table -->
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Enabled</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let user of users">
+        <tr *ngIf="selectedUser?.id !== user.id">
+          <td>{{ user.fullName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+          <td>
+            <button (click)="editUser(user)">Edit</button>
+            <button (click)="confirmDeleteUser(user)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="selectedUser?.id === user.id">
+          <td><input [(ngModel)]="selectedUser.fullName" /></td>
+          <td><input [(ngModel)]="selectedUser.email" /></td>
+          <td>
+            <select [(ngModel)]="selectedUser.role">
+              <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+              <option value="MANAGER">MANAGER</option>
+              <option value="EMPLOYEE">EMPLOYEE</option>
+            </select>
+          </td>
+          <td><input type="checkbox" [(ngModel)]="selectedUser.enabled" /></td>
+          <td>
+            <button (click)="updateUser()">Save</button>
+            <button (click)="cancelEdit()">Cancel</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div *ngIf="showDeleteModal" class="modal-backdrop">
+  <div class="modal-box">
+    <h3>Confirm Deletion</h3>
+    <p>
+      Are you sure you want to delete user
+      <strong>{{ userToDelete?.fullName }}</strong>
+      with role
+      <strong>{{ userToDelete?.role }}</strong>?
+    </p>
+    <div class="modal-actions">
+      <button class="btn btn-danger" (click)="deleteUserConfirmed()">Yes, Delete</button>
+      <button class="btn btn-cancel" (click)="cancelDelete()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div *ngIf="showSuccessModal" class="modal-backdrop">
+  <div class="modal-box">
+    <h3>Success</h3>
+    <p>{{ successMessage }}</p>
+    <div class="modal-actions">
+      <button class="btn btn-success" (click)="closeSuccessModal()">OK</button>
+    </div>
+  </div>
+</div>
